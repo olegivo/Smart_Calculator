@@ -1,0 +1,9 @@
+/.gradle/
+/.idea/
+/**/out/
+/**/task/build/**
+/**/task/out/
+/**/task/test/**
+/**/*.html
+/**/*.yaml
+/**/build/
