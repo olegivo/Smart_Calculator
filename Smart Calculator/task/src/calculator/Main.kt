@@ -6,14 +6,19 @@ fun main() {
     val scanner = Scanner(System.`in`)
 
     while (scanner.hasNextLine()) {
-        val line = scanner.nextLine()
-        if (line == "/exit") {
-            println("Bye!")
-            break
+        when (val line = scanner.nextLine()) {
+            "/exit" -> {
+                println("Bye!")
+                break
+            }
+            "/help" -> {
+                println("The program calculates the sum of numbers")
+            }
+            "" -> continue
+            else -> {
+                val items = line.split(' ').filter { it.isNotBlank() }.map { it.toInt() }
+                println(items.sum())
+            }
         }
-        if (line.isBlank()) continue
-
-        val items = line.split(' ').map { it.toInt() }
-        println(items.sum())
     }
 }
