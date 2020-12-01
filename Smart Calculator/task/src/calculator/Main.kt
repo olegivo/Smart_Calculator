@@ -16,9 +16,48 @@ fun main() {
             }
             "" -> continue
             else -> {
-                val items = line.split(' ').filter { it.isNotBlank() }.map { it.toInt() }
-                println(items.sum())
+                println(Calculator.evaluate(line))
             }
         }
+    }
+}
+
+object Calculator {
+
+    fun evaluate(line: String): Int {
+        val items = line.split(' ')
+            .filter { it.isNotBlank() }
+            .flatMap { s ->
+                if (s.toIntOrNull() != null) listOf(s) else {
+                    s.toCharArray().map { c -> c.toString() }
+                }
+            }
+
+        var sum = 0
+        var position = 0
+        var currentOperation: String? = null
+        while (position < items.size) {
+            val item = items[position]
+            item.toIntOrNull()
+                ?.let {
+                    if (currentOperation == "-") {
+                        sum -= it
+                    } else {
+                        sum += it
+                    }
+                    currentOperation = null
+                }
+                ?: run {
+                    currentOperation =
+                        if (currentOperation == "-" && item == "-") {
+                            "+"
+                        } else {
+                            item
+                        }
+                }
+            position++
+        }
+
+        return sum
     }
 }
