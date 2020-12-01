@@ -16,11 +16,18 @@ fun main() {
             }
             "" -> continue
             else -> {
-                println(Calculator.evaluate(line))
+                when {
+                    line.startsWith("/") -> println("Unknown command")
+                    isInvalidExpression(line) -> println("Invalid expression")
+                    else -> println(Calculator.evaluate(line))
+                }
             }
         }
     }
 }
+
+private fun isInvalidExpression(line: String) =
+    !line.matches(Regex("(([\\+\\-]\\s*)*[0-9]+\\s?)+"))
 
 object Calculator {
 
