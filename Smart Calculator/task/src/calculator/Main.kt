@@ -16,23 +16,13 @@ fun main() {
             }
             "" -> continue
             else -> {
-                when {
-                    line.startsWith("/") -> println("Unknown command")
-                    isAssignment(line) -> Calculator.assign(line)
-                    isVariable(line) -> Calculator.processVariable(line)
-                    isInvalidExpression(line) -> println("Invalid expression")
-                    else -> println(Calculator.evaluate(line))
+                if (line.startsWith("/")) {
+                    println("Unknown command")
+                } else {
+                    Calculator.process(line)
                 }
             }
         }
     }
 }
 
-private fun isVariable(line: String) =
-    line.matches(Regex("\\s*[a-zA-Z]+\\s*(=\\s*[0-9\\w]+\\s*)?"))
-
-private fun isAssignment(line: String) =
-    line.contains("=")
-
-private fun isInvalidExpression(line: String) =
-    !line.matches(Regex("(([\\+\\-]\\s*)*[0-9\\w]+\\s?)+"))
