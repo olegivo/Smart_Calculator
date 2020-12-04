@@ -124,7 +124,7 @@ class TokensReader(private val line: String) {
 
         fun fromString(s: StringBuilder): Token =
             when (val lastSymbol = s.last()) {
-                in digits -> Token.Number(s.toString().toInt())
+                in digits -> Token.Number(s.toString())
                 in symbols -> Token.Variable(s.toString())
                 minus -> if (s.length % 2 == 0) Token.Plus else Token.Minus
                 else -> Token.SpecialToken.All.single { it.value == lastSymbol }

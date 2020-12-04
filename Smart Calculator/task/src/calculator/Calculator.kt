@@ -4,7 +4,7 @@ import java.util.*
 
 object Calculator {
 
-    private val variables = mutableMapOf<String, Int>()
+    private val variables = mutableMapOf<String, String>()
 
     fun process(line: String) {
         try {
@@ -30,9 +30,9 @@ object Calculator {
         variables[variable.name] = evaluate(tokens)
     }
 
-    private fun evaluate(tokens: List<Token>): Int {
+    private fun evaluate(tokens: List<Token>): String {
         val infixNotation = InfixToPostfixConverter.convert(tokens)
-        val stack = Stack<Int>()
+        val stack = Stack<String>()
         val debug = StringBuilder()
         fun StringBuilder.addLog(s: String) {
             appendLine(s)
@@ -50,7 +50,7 @@ object Calculator {
                     debug.appendLine("$token")
                     val v2 = stack.pop()
                     val v1 = if (token is Token.Minus && stack.isEmpty()) {
-                        0 // unary minus
+                        "0" // unary minus
                     } else {
                         stack.pop()
                     }
